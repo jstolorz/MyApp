@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="myApp" default="info" basedir=".">
+
+  <description>
+    myApp ant deploy file.
+  </description>
+
+  <property name="secprops.location" value="tomcat.properties" />
+  <property file="${secprops.location}" />
+  <property name="projec.name" value="MyApp"/>
+  <property name="target.dir" location="target"/>
+  <property name="lib.dir" value="lib"/>
+
+  <property name="war.file" value="${target.dir}\${projec.name}.war" />
+
+   <path id = "classpath">
+    <fileset dir = "${basedir}/">
+      <include name="${lib.dir}/*.jar"/>
+        <include name="${lib.dir}/*sources.jar"/>
+        <include name="${lib.dir}/*javadoc.jar"/>
+    </fileset>
+  </path>
+  
+  <target name="info">
+    <echo message="-------------------------------------------------------------------" />
+    <echo message="Commands:" />
+    <echo message="  start-webapp" />
+    <echo message="  stop-webapp" />
+    <echo message="  undeploy-webapp" />
+    <echo message="  deploy-webapp" />
+    <echo message="  sessions-webapp" />
+    <echo message="-------------------------------------------------------------------" />
+    <echo message="Properties: "/>
+    <echo message="tomcat.manager.url = ${tomcat.manager.url}"/>
+    <echo message="tomcat.username    = ${tomcat.username}"/>
+    <echo message="tomcat.password    = ${tomcat.password}"/>
+    <echo message="webapp.name        = ${webapp.name}"/>
+    <echo message="war.file           = ${war.file}"/>
+    <echo message="-------------------------------------------------------------------" />
+  </target>
+
+   <taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpathref="classpath" />
+   <taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpathref="classpath"/>
+   <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="classpath"/>
+   <taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="classpath"/>
+
+    <target name="start-webapp">
+      <start url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}" path="/${webapp.name}" />
+    </target>
+
+    <target name="deploy-webapp">
+      <echo message="START to deploy file ${war.file} to Tomcat Server: ${tomcat.manager.url}" />
+      <deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}" path="/${webapp.name}" war="file:${war.file}" update="true"/>
+      <echo message="END of deployment" />
+    </target>
+
+    <target name="undeploy-webapp">
+      <undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}" path="/${webapp.name}" failonerror="false" />
+    </target>
+    
+    <target name="stop-webapp">
+      <stop url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}" path="/${webapp.name}" failonerror="false" />
+    </target>
+
+
+
+
+</project>

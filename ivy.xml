@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+   <info organisation="org.apache" module="JavaWebAppAntProject"/>
+   <dependencies>
+        <dependency org="org.apache.tomcat" name="catalina-ant" rev="6.0.53"/>
+        <dependency org="javax" name="javaee-web-api" rev="8.0.1"/>
+   </dependencies>
+</ivy-module>
