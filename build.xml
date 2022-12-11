@@ -6,6 +6,7 @@
   <property name="target.dir" location="target"/>
   <property name="target.lib.dir" location="target/lib"/>
   <property name="webcontent.dir" location="${src.dir}/main/webapp"/>
+  <property name="public.dir" location="${src.dir}/main/webapp/public"/>
   <property name="lib.dir" value="lib"/>
 
   <path id = "classpath">
